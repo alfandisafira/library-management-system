@@ -1,6 +1,7 @@
 package com.sinaukoding.tugas_akhir.library_management_system.model.request;
 
 import com.sinaukoding.tugas_akhir.library_management_system.model.enums.Role;
+import com.sinaukoding.tugas_akhir.library_management_system.model.enums.Status;
 import com.sinaukoding.tugas_akhir.library_management_system.model.enums.TipeIdentitas;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -20,5 +21,6 @@ public record UserRequestRecord(String id,
                                 @NotBlank(message = "Nama tidak boleh kosong") String nama,
                                 @NotNull(message = "Tipe Identitas tidak boleh kosong") TipeIdentitas tipeIdentitas,
                                 @NotNull(message = "Nomor Identitas tidak boleh kosong") String nomorIdentitas,
+                                @NotNull(message = "Status tidak boleh kosong") Status status,
                                 @NotNull(message = "Role tidak boleh kosong") Role role) {
 }

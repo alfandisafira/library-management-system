@@ -21,6 +21,7 @@ public class UserMapper {
                 .nama(request.nama().toLowerCase())
                 .tipeIdentitas(request.tipeIdentitas())
                 .nomorIdentitas(request.nomorIdentitas())
+                .status(request.status())
                 .role(request.role())
                 .build();
     }
