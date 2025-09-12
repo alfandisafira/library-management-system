@@ -2,6 +2,7 @@ package com.sinaukoding.tugas_akhir.library_management_system.entity.managementU
 
 import com.sinaukoding.tugas_akhir.library_management_system.entity.app.BaseEntity;
 import com.sinaukoding.tugas_akhir.library_management_system.model.enums.Role;
+import com.sinaukoding.tugas_akhir.library_management_system.model.enums.Status;
 import com.sinaukoding.tugas_akhir.library_management_system.model.enums.TipeIdentitas;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -27,6 +28,7 @@ import java.time.LocalDateTime;
         @Index(name = "idx_user_nama", columnList = "nama"),
         @Index(name = "idx_user_tipe_identitas", columnList = "tipeIdentitas"),
         @Index(name = "idx_user_nomor_identitas", columnList = "nomorIdentitas"),
+        @Index(name = "idx_user_status", columnList = "status"),
         @Index(name = "idx_user_role", columnList = "role")
 })
 public class User extends BaseEntity {
@@ -55,6 +57,10 @@ public class User extends BaseEntity {
 
     @Column(nullable = false)
     private String nomorIdentitas;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Status status;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
