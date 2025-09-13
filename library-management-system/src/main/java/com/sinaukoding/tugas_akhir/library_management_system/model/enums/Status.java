@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public enum Status {
 
+    BELUM_AKTIF("Belum Aktif"),
     AKTIF("Aktif"),
     TIDAK_AKTIF("Tidak Aktif");
 
