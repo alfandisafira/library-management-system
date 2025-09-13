@@ -59,7 +59,7 @@ public class UserSeviceImpl implements UserService {
 
         // validasi id
         if (request.id() == null || request.id().isEmpty()){
-            throw new RuntimeException("Id tidak boleh kosong");
+            throw new RuntimeException("id tidak boleh kosong");
         }
 
         var userExisting = userRepository.findById(request.id()).orElseThrow(

@@ -18,7 +18,7 @@ public class UserMapper {
                 .username(request.username().toLowerCase())
                 .email(request.email().toLowerCase())
                 .password(passwordEncoder.encode(request.password()))
-                .nama(request.nama().toLowerCase())
+                .nama(request.nama().toUpperCase())
                 .tipeIdentitas(request.tipeIdentitas())
                 .nomorIdentitas(request.nomorIdentitas())
                 .status(request.status())
