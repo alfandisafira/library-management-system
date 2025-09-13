@@ -16,4 +16,6 @@ public interface UserService {
 
     SimpleMap findById(String id);
 
+    void activation(String username);
+
 }

@@ -5,6 +5,7 @@ import com.sinaukoding.tugas_akhir.library_management_system.entity.managementUs
 import com.sinaukoding.tugas_akhir.library_management_system.mapper.managementUser.UserMapper;
 import com.sinaukoding.tugas_akhir.library_management_system.model.app.AppPage;
 import com.sinaukoding.tugas_akhir.library_management_system.model.app.SimpleMap;
+import com.sinaukoding.tugas_akhir.library_management_system.model.enums.Status;
 import com.sinaukoding.tugas_akhir.library_management_system.model.filter.UserFilterRecord;
 import com.sinaukoding.tugas_akhir.library_management_system.model.request.UserRequestRecord;
 import com.sinaukoding.tugas_akhir.library_management_system.repository.managementUser.UserRepository;
@@ -130,6 +131,22 @@ public class UserSeviceImpl implements UserService {
         data.put("role", user.getRole());
 
         return data;
+    }
+
+    @Override
+    public void activation(String username){
+        if (username == null || username.isEmpty()){
+            throw new RuntimeException("Username tidak boleh kosong");
+        }
+
+        var user = userRepository.findUserByUsername(username).orElseThrow(() ->  new RuntimeException("Username tidak terdaftar"));
+
+        if (user.getStatus().toString().equalsIgnoreCase("AKTIF")){
+            throw new RuntimeException("Data user sudah aktif");
+        }
+
+        user.setStatus(Status.AKTIF);
+        userRepository.save(user);
     }
 
 }

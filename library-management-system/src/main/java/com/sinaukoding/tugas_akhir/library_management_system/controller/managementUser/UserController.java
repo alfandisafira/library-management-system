@@ -31,7 +31,7 @@ public class UserController {
     public BaseResponse<?> edit(@RequestBody UserRequestRecord request){
         userService.edit(request);
 
-        return BaseResponse.ok("Data berhasil disimpan", null);
+        return BaseResponse.ok("Data berhasil diubah", null);
     }
 
     @PostMapping("find-all")
@@ -45,6 +45,14 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     public BaseResponse<?> findById(@PathVariable String id) {
         return BaseResponse.ok(null, userService.findById(id));
+    }
+
+    @PostMapping("activation")
+    @PreAuthorize("hasRole('ADMIN')")
+    public BaseResponse<?> activation(@RequestParam String username){
+        userService.activation(username);
+
+        return BaseResponse.ok("Data berhasil diubah", null);
     }
 
 }
