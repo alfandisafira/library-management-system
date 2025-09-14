@@ -12,4 +12,6 @@ public interface BukuService {
     void edit(BukuRequestRecord request);
 
     Page<SimpleMap> findAll(BukuFilterRecord filterRequest, Pageable pageable);
+
+    SimpleMap findyById(String id);
 }

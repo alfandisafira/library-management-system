@@ -9,10 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("buku")
@@ -41,5 +38,10 @@ public class BukuController {
     public BaseResponse<?> finByAll(@PageableDefault(direction = Sort.Direction.DESC, sort = "modifiedDate") Pageable pageable,
                                     @RequestBody BukuFilterRecord filterRequest){
         return BaseResponse.ok(null, bukuService.findAll(filterRequest, pageable));
+    }
+
+    @GetMapping("find-by-id/{id}")
+    public BaseResponse<?> findById(@PathVariable String id) {
+        return BaseResponse.ok(null, bukuService.findyById(id));
     }
 }

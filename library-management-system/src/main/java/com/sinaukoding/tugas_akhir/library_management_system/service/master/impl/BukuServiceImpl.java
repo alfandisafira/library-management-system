@@ -96,13 +96,37 @@ public class BukuServiceImpl implements BukuService {
             SimpleMap data = new SimpleMap();
 
             data.put("id", buku.getId());
-            data.put("judul", buku.getJudulBuku().getJudul());
-            data.put("penulis", buku.getJudulBuku().getPenulis());
             data.put("statusBuku", buku.getStatusBuku());
+            data.put("createdDate", buku.getCreatedDate());
+            data.put("modifiedDate", buku.getModifiedDate());
+            data.put("judulBuku", buku.getJudulBuku());
+
+            var listBukuDipinjam = buku.getListBukuDipinjam().stream().toList();
+
+            data.put("listRiwayatPinjaman", listBukuDipinjam);
 
             return data;
         }).toList();
 
         return AppPage.create(listData, pageable, listBuku.getTotalElements());
+    }
+
+    @Override
+    public SimpleMap findyById(String id) {
+        var buku = bukuRepository.findById(id).orElseThrow(() ->  new RuntimeException("Data Buku tidak ditemukan"));
+
+        SimpleMap data = new SimpleMap();
+
+        data.put("id", buku.getId());
+        data.put("statusBuku", buku.getStatusBuku());
+        data.put("createdDate", buku.getCreatedDate());
+        data.put("modifiedDate", buku.getModifiedDate());
+        data.put("judulBuku", buku.getJudulBuku());
+
+        var listBukuDipinjam = buku.getListBukuDipinjam().stream().toList();
+
+        data.put("listRiwayatPinjaman", listBukuDipinjam);
+
+        return data;
     }
 }

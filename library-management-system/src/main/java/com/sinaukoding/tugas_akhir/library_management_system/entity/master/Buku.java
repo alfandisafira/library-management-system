@@ -1,13 +1,16 @@
 package com.sinaukoding.tugas_akhir.library_management_system.entity.master;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sinaukoding.tugas_akhir.library_management_system.entity.app.BaseEntity;
 import com.sinaukoding.tugas_akhir.library_management_system.model.enums.StatusBuku;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -27,8 +30,10 @@ public class Buku extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_judul_buku", nullable = false)
+    @JsonBackReference
+    @JsonIgnore
     private JudulBuku judulBuku;
 
     @Enumerated(EnumType.STRING)
@@ -37,5 +42,7 @@ public class Buku extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "buku", orphanRemoval = true, fetch = FetchType.LAZY)
     @Builder.Default
-    private Set<RiwayatPeminjaman> listBukuDipinjam = new HashSet<>();
+    @JsonManagedReference
+    @JsonIgnore
+    private List<RiwayatPeminjaman> listBukuDipinjam = new ArrayList<>();
 }
