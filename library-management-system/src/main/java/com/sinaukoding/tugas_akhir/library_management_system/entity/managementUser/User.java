@@ -6,10 +6,7 @@ import com.sinaukoding.tugas_akhir.library_management_system.model.enums.Status;
 import com.sinaukoding.tugas_akhir.library_management_system.model.enums.TipeIdentitas;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;

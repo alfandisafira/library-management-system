@@ -3,7 +3,6 @@ package com.sinaukoding.tugas_akhir.library_management_system.mapper.master;
 import com.sinaukoding.tugas_akhir.library_management_system.entity.master.RiwayatPeminjaman;
 import com.sinaukoding.tugas_akhir.library_management_system.model.request.RiwayatPeminjamanRequestRecord;
 import com.sinaukoding.tugas_akhir.library_management_system.repository.master.BukuRepository;
-import com.sinaukoding.tugas_akhir.library_management_system.repository.master.JudulBukuRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
