@@ -1,13 +1,15 @@
 package com.sinaukoding.tugas_akhir.library_management_system.entity.master;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sinaukoding.tugas_akhir.library_management_system.entity.app.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -38,5 +40,7 @@ public class JudulBuku extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "judulBuku", orphanRemoval = true, fetch = FetchType.LAZY)
     @Builder.Default
-    private Set<Buku> listBuku = new HashSet<>();
+    @JsonManagedReference
+    @JsonIgnore
+    private List<Buku> listBuku = new ArrayList<>();
 }

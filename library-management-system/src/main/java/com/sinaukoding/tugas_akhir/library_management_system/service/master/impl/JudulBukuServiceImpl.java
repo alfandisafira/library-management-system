@@ -31,7 +31,7 @@ public class JudulBukuServiceImpl implements JudulBukuService {
         // validasi mandatory
         validatorService.validator(request);
 
-        if (judulBukuRepository.existsByJudulAndPenulis(request.judul().toLowerCase(), request.penulis().toLowerCase())){
+        if (judulBukuRepository.existsByJudulAndPenulis(request.judul().toUpperCase(), request.penulis().toUpperCase())){
             throw new RuntimeException("Buku dengan judul ["+ request.judul() +"] dan penulis ["+ request.penulis()+"] sudah terdaftar");
         }
 
@@ -75,6 +75,12 @@ public class JudulBukuServiceImpl implements JudulBukuService {
             data.put("judul", judulBuku.getJudul());
             data.put("penulis", judulBuku.getPenulis());
             data.put("stokTersedia", judulBuku.getStokTersedia());
+            data.put("createdDate", judulBuku.getCreatedDate());
+            data.put("modifiedDate", judulBuku.getModifiedDate());
+
+            var bukuBaru = judulBuku.getListBuku().stream().toList();
+
+            data.put("listBuku", bukuBaru);
 
             return data;
         }).toList();
@@ -91,6 +97,12 @@ public class JudulBukuServiceImpl implements JudulBukuService {
         data.put("judul", judulBuku.getJudul());
         data.put("penulis", judulBuku.getPenulis());
         data.put("stokTersedia", judulBuku.getStokTersedia());
+        data.put("createdDate", judulBuku.getCreatedDate());
+        data.put("modifiedDate", judulBuku.getModifiedDate());
+
+        var bukuBaru = judulBuku.getListBuku().stream().toList();
+
+        data.put("listBuku", bukuBaru);
 
         return data;
     }

@@ -27,8 +27,8 @@ public class JudulBukuMapper {
                             .id(id)
                             .judulBuku(judulBuku)
                             .build())
-                    .collect(Collectors.toSet()));
-        };
+                    .collect(Collectors.toList()));
+        }
 
         return judulBuku;
     }
