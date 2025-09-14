@@ -18,3 +18,16 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   profiles:
     active: development
+
+spring-doc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    defaultModelsExpandDepth: -1
+    docExpansion: none
+    tagsSorter: alpha
+    operationSorter: alpha
+
+logging:
+  level:
+    com.sinaukoding.tugas_akhir.library_management_system: TRACE
