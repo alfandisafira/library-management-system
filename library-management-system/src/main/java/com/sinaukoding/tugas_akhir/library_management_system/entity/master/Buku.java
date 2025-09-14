@@ -3,11 +3,11 @@ package com.sinaukoding.tugas_akhir.library_management_system.entity.master;
 import com.sinaukoding.tugas_akhir.library_management_system.entity.app.BaseEntity;
 import com.sinaukoding.tugas_akhir.library_management_system.model.enums.StatusBuku;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -18,9 +18,8 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "m_buku", indexes = {
         @Index(name = "idx_buku_created_date", columnList = "createdDate"),
         @Index(name = "idx_buku_modified_date", columnList = "modifiedDate"),
-        @Index(name = "idx_buku_judul_buku_id", columnList = "judul_buku_id"),
-        @Index(name = "idx_buku_status_" +
-                "buku", columnList = "status_buku")
+        @Index(name = "idx_buku_id_judul_buku", columnList = "id_judul_buku"),
+        @Index(name = "idx_buku_status_buku", columnList = "status_buku")
 })
 public class Buku extends BaseEntity {
 
@@ -29,10 +28,14 @@ public class Buku extends BaseEntity {
     private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "judul_buku_id", nullable = false)
+    @JoinColumn(name = "id_judul_buku", nullable = false)
     private JudulBuku judulBuku;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private StatusBuku statusBuku;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "buku", orphanRemoval = true, fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<RiwayatPeminjaman> listBukuDipinjam = new HashSet<>();
 }
