@@ -5,9 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 public record RiwayatPeminjamanRequestRecord(String id,
-                                             @NotBlank(message = "Id Peminjam tidak boleh kosong") String idPeminjam,
-                                             @NotBlank(message = "Id Pemberi tidak boleh kosong") String idPemberi,
-                                             String idPenerima,
+                                             @NotBlank(message = "Username peminjam tidak boleh kosong") String usernamePeminjam,
+                                             @NotBlank(message = "Username admin tidak boleh kosong") String usernameAdmin,
                                              @NotBlank(message = "Id Buku tidak boleh kosong") String idBuku,
                                              LocalDateTime tanggalKembali) {
 }

@@ -42,6 +42,7 @@ public class RiwayatPeminjamanController {
     }
 
     @GetMapping("find-by-id/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public BaseResponse<?> findById(@PathVariable String id) {
         return BaseResponse.ok(null, riwayatPeminjamanService.findById(id));
     }

@@ -43,9 +43,9 @@ public class RiwayatPeminjamanServiceImpl implements RiwayatPeminjamanService {
         validatorService.validator(request);
 
         // validasi logic business
-        var peminjam = userRepository.findById(request.idPeminjam()).orElseThrow(() -> new RuntimeException("Id Peminjam tidak ditemukan"));
+        var peminjam = userRepository.findUserByUsername(request.usernamePeminjam()).orElseThrow(() -> new RuntimeException("User peminjam tidak ditemukan"));
 
-        if (peminjam.getStatus() != Status.BELUM_AKTIF){
+        if (peminjam.getStatus() != Status.AKTIF){
             throw new RuntimeException("User belum aktif, silahkan aktivasi terlebih dahulu");
         }
 
@@ -53,9 +53,9 @@ public class RiwayatPeminjamanServiceImpl implements RiwayatPeminjamanService {
             throw new RuntimeException("Role user peminjam bukan PENGUNJUNG");
         }
 
-        var pemberi = userRepository.findById(request.idPemberi()).orElseThrow(() -> new RuntimeException("Id Pemberi tidak ditemukan"));
+        var admin = userRepository.findUserByUsername(request.usernameAdmin()).orElseThrow(() -> new RuntimeException("User admin tidak ditemukan"));
 
-        if (pemberi.getRole() != Role.ADMIN){
+        if (admin.getRole() != Role.ADMIN){
             throw new RuntimeException("Role user pemberi bukan ADMIN");
         }
 
@@ -89,23 +89,12 @@ public class RiwayatPeminjamanServiceImpl implements RiwayatPeminjamanService {
 
         RiwayatPeminjaman riwayatPeminjaman = riwayatPeminjamanRepository.findById(request.id()).orElseThrow(() -> new RuntimeException("Data Riwayat Peminjaman tidak ditemukan"));
 
-        if (request.idPenerima() == null || request.idPenerima().isEmpty()){
-            throw new RuntimeException("Id Penerima tidak boleh kosong");
-        }
-
-        var penerima = userRepository.findById(request.idPenerima()).orElseThrow(() -> new RuntimeException("Id Penerima tidak ditemukan"));
-
-        if (penerima.getRole() != Role.ADMIN){
-            throw new RuntimeException("Role user Penerima bukan ADMIN");
-        }
-
         var buku = bukuRepository.findById(riwayatPeminjaman.getBuku().getId()).orElseThrow(() -> new RuntimeException("Buku tidak ditemukan"));
 
         if (buku.getStatusBuku() == StatusBuku.TERSEDIA){
             throw new RuntimeException("Buku sudah kembali");
         }
 
-        riwayatPeminjaman.setIdPenerimaBuku(request.idPenerima());
         riwayatPeminjaman.setTanggalKembali(LocalDateTime.now());
         riwayatPeminjamanRepository.save(riwayatPeminjaman);
 
@@ -126,9 +115,8 @@ public class RiwayatPeminjamanServiceImpl implements RiwayatPeminjamanService {
     public Page<SimpleMap> findAll(RiwayatPeminjamanFilterRecord filterRequest, Pageable pageable) {
         CustomBuilder<RiwayatPeminjaman> builder = new CustomBuilder<>();
 
-        FilterUtil.builderConditionNotBlankLike("idPeminjam", filterRequest.idPeminjam(), builder);
-        FilterUtil.builderConditionNotBlankLike("idPemberi", filterRequest.idPemberi(), builder);
-        FilterUtil.builderConditionNotBlankLike("idPenerima", filterRequest.idPenerima(), builder);
+        FilterUtil.builderConditionNotBlankLike("usernamePeminjam", filterRequest.usernamePeminjam(), builder);
+        FilterUtil.builderConditionNotBlankLike("usernameAdmin", filterRequest.usernameAdmin(), builder);
         FilterUtil.builderConditionNotBlankLike("idBuku", filterRequest.idBuku(), builder);
 
         Page<RiwayatPeminjaman> listRiwayatPeminjaman = riwayatPeminjamanRepository.findAll(builder.build(), pageable);
@@ -137,18 +125,12 @@ public class RiwayatPeminjamanServiceImpl implements RiwayatPeminjamanService {
             SimpleMap data = new SimpleMap();
 
             data.put("id", riwayatPeminjaman.getId());
-            data.put("idPeminjam", riwayatPeminjaman.getIdPeminjamBuku());
-            data.put("idPemberi", riwayatPeminjaman.getIdPemberiBuku());
-
-            if (riwayatPeminjaman.getIdPenerimaBuku() != null){
-                data.put("idPenerima", riwayatPeminjaman.getIdPenerimaBuku());
-            }
-
-            String judul = riwayatPeminjaman.getBuku().getJudulBuku().getJudul();
-            data.put("judul", judul);
-
-            String penulis = riwayatPeminjaman.getBuku().getJudulBuku().getPenulis();
-            data.put("penulis", penulis);
+            data.put("usernamePeminjam", riwayatPeminjaman.getUsernameAdmin());
+            data.put("usernameAdmin", riwayatPeminjaman.getUsernamePeminjam());
+            data.put("createdDate", riwayatPeminjaman.getCreatedDate());
+            data.put("modifiedDate", riwayatPeminjaman.getModifiedDate());
+            data.put("buku", riwayatPeminjaman.getBuku());
+            data.put("judul", riwayatPeminjaman.getBuku().getJudulBuku());
 
             if (riwayatPeminjaman.getTanggalKembali() != null){
                 data.put("tanggalKembali", riwayatPeminjaman.getTanggalKembali());
@@ -167,18 +149,12 @@ public class RiwayatPeminjamanServiceImpl implements RiwayatPeminjamanService {
         SimpleMap data = new SimpleMap();
 
         data.put("id", riwayatPeminjaman.getId());
-        data.put("idPeminjam", riwayatPeminjaman.getIdPeminjamBuku());
-        data.put("idPemberi", riwayatPeminjaman.getIdPemberiBuku());
-
-        if (riwayatPeminjaman.getIdPenerimaBuku() != null){
-            data.put("idPenerima", riwayatPeminjaman.getIdPenerimaBuku());
-        }
-
-        String judul = riwayatPeminjaman.getBuku().getJudulBuku().getJudul();
-        data.put("judul", judul);
-
-        String penulis = riwayatPeminjaman.getBuku().getJudulBuku().getPenulis();
-        data.put("penulis", penulis);
+        data.put("usernamePeminjam", riwayatPeminjaman.getUsernameAdmin());
+        data.put("usernameAdmin", riwayatPeminjaman.getUsernamePeminjam());
+        data.put("createdDate", riwayatPeminjaman.getCreatedDate());
+        data.put("modifiedDate", riwayatPeminjaman.getModifiedDate());
+        data.put("buku", riwayatPeminjaman.getBuku());
+        data.put("judul", riwayatPeminjaman.getBuku().getJudulBuku());
 
         if (riwayatPeminjaman.getTanggalKembali() != null){
             data.put("tanggalKembali", riwayatPeminjaman.getTanggalKembali());

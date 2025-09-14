@@ -14,13 +14,9 @@ public class RiwayatPeminjamanMapper {
 
     public RiwayatPeminjaman requestToEntity(RiwayatPeminjamanRequestRecord request){
         RiwayatPeminjaman riwayatPeminjaman = RiwayatPeminjaman.builder()
-                .idPeminjamBuku(request.idPeminjam())
-                .idPemberiBuku(request.idPemberi())
+                .usernamePeminjam(request.usernamePeminjam())
+                .usernameAdmin(request.usernameAdmin())
                 .build();
-
-        if (request.idPenerima() != null){
-            riwayatPeminjaman.setIdPenerimaBuku(request.idPenerima());
-        }
 
         var buku = bukuRepository.findById(request.idBuku()).orElseThrow(() -> new RuntimeException("Buku tidak ditemukan"));
         riwayatPeminjaman.setBuku(buku);
