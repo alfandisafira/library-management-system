@@ -109,6 +109,8 @@ public class UserSeviceImpl implements UserService {
             data.put("nomorIdentitas", user.getNomorIdentitas());
             data.put("status", user.getStatus());
             data.put("role", user.getRole());
+            data.put("createdDate", user.getCreatedDate());
+            data.put("modifiedDate", user.getModifiedDate());
 
             return data;
         }).toList();
@@ -129,6 +131,8 @@ public class UserSeviceImpl implements UserService {
         data.put("nomorIdentitas", user.getNomorIdentitas());
         data.put("status", user.getStatus());
         data.put("role", user.getRole());
+        data.put("createdDate", user.getCreatedDate());
+        data.put("modifiedDate", user.getModifiedDate());
 
         return data;
     }
