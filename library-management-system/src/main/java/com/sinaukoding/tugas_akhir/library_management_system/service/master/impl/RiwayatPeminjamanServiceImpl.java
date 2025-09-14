@@ -125,8 +125,8 @@ public class RiwayatPeminjamanServiceImpl implements RiwayatPeminjamanService {
             SimpleMap data = new SimpleMap();
 
             data.put("id", riwayatPeminjaman.getId());
-            data.put("usernamePeminjam", riwayatPeminjaman.getUsernameAdmin());
-            data.put("usernameAdmin", riwayatPeminjaman.getUsernamePeminjam());
+            data.put("usernamePeminjam", riwayatPeminjaman.getUsernamePeminjam());
+            data.put("usernameAdmin", riwayatPeminjaman.getUsernameAdmin());
             data.put("createdDate", riwayatPeminjaman.getCreatedDate());
             data.put("modifiedDate", riwayatPeminjaman.getModifiedDate());
             data.put("buku", riwayatPeminjaman.getBuku());
@@ -149,8 +149,8 @@ public class RiwayatPeminjamanServiceImpl implements RiwayatPeminjamanService {
         SimpleMap data = new SimpleMap();
 
         data.put("id", riwayatPeminjaman.getId());
-        data.put("usernamePeminjam", riwayatPeminjaman.getUsernameAdmin());
-        data.put("usernameAdmin", riwayatPeminjaman.getUsernamePeminjam());
+        data.put("usernamePeminjam", riwayatPeminjaman.getUsernamePeminjam());
+        data.put("usernameAdmin", riwayatPeminjaman.getUsernameAdmin());
         data.put("createdDate", riwayatPeminjaman.getCreatedDate());
         data.put("modifiedDate", riwayatPeminjaman.getModifiedDate());
         data.put("buku", riwayatPeminjaman.getBuku());
